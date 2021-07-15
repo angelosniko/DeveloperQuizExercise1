@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+    body {
+      font-family: Arial;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    form.example input[type=text] {
+      padding: 10px;
+      font-size: 17px;
+      border: 1px solid grey;
+      float: left;
+      width: 80%;
+      background: #f1f1f1;
+    }
+    
+    form.example button {
+      float: left;
+      width: 20%;
+      padding: 10px;
+      background: #2196F3;
+      color: white;
+      font-size: 17px;
+      border: 1px solid grey;
+      border-left: none;
+      cursor: pointer;
+    }
+    
+    form.example button:hover {
+      background: #0b7dda;
+    }
+    
+    form.example::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    p    {color: #0b7dda;}
+
+    h2 { color: #0b7dda; font-family: 'Raleway',sans-serif; font-size: 30px; font-weight: 800; line-height: 36px; margin: 0 0 24px; text-align: center; }
+
+
+   </style>   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+
+
+$(document).ready(function(){
+    $("button").click(function() {
+                $("img").remove();
+                $("p").remove();
+            });
+  $("#idForm").submit(function(e) {
+  
+  e.preventDefault(); // avoid to execute the actual submit of the form.
+  
+  var movietitle= document.getElementById("mySearchField").value;
+  console.log(movietitle);
+  
+  var url = "https://www.omdbapi.com/?s=" + movietitle + "&apikey=c31b6346";
+  
+  $.ajax({
+         type: "GET",
+         url: url,
+         dataType:"json", 
+         success: function(data)
+         {
+            //  alert(data); 
+             console.log(data)
+            //  console.log(data.Search[0].Poster)
+
+            // var Poster=data.Poster
+            // console.log(Poster)
+            // var myImage = new Image(500, 500);
+            // myImage.src = Poster;
+            // document.body.appendChild(myImage);
+
+           
+            try{         
+              
+             
+            for(i=0;i<3;i++){
+            var imdbcode=data.Search[i].imdbID 
+            console.log(imdbcode)
+
+            var p= document.createElement("p");
+            p.innerText = data.Search[i].Title;
+            document.body.appendChild(p);
+
+            var para = document.createElement("p");
+            // para.innerText = data.Search[i].Title;
+            document.body.appendChild(para);
+            var  archor= document.createElement("a");
+            archor.setAttribute('href','https://www.imdb.com/title/'+imdbcode+'/');
+            archor.setAttribute('target','_blank');
+            para.appendChild(archor);  
+            var oImg = document.createElement("img");
+            oImg.setAttribute('src', data.Search[i].Poster);
+            oImg.setAttribute('alt', 'https://www.imdb.com/title/'+imdbcode+'/');
+            oImg.setAttribute('height', '300px');
+            oImg.setAttribute('width', '300px');          
+            archor.appendChild(oImg);
+
+
+
+            }}
+            catch{
+
+                alert("Movie not found");
+
+
+                }
+       
+
+
+
+
+            }
+
+            
+
+  
+       
+            
+         
+       });
+   
+  });
+});
+
+</script>
+</head>
+<body>
+<h2>Movie Search</h2>
+
+<div class="container_1">
+<form id="idForm" class="example">
+  <input id="mySearchField" type="text" placeholder="Type any movie..." name="search">
+  <button id="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+
+
+
+
+</body>
+</html>
