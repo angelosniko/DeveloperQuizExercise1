@@ -52,9 +52,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 
-
-
-
 $(document).ready(function(){
     $("button").click(function() {
                 $("img").remove();
@@ -86,9 +83,8 @@ $(document).ready(function(){
             // document.body.appendChild(myImage);
 
            
-            try{         
-              
-             
+            try{     
+
             for(i=0;i<3;i++){
             var imdbcode=data.Search[i].imdbID 
             console.log(imdbcode)
@@ -111,30 +107,14 @@ $(document).ready(function(){
             oImg.setAttribute('width', '300px');          
             archor.appendChild(oImg);
 
-
-
             }}
             catch{
 
                 alert("Movie not found");
 
-
                 }
-       
-
-
-
-
-            }
-
-            
-
-  
-       
-            
-         
+            }     
        });
-   
   });
 });
 
@@ -148,10 +128,5 @@ $(document).ready(function(){
   <input id="mySearchField" type="text" placeholder="Type any movie..." name="search">
   <button id="mySearchButton" type="submit"><i class="fa fa-search"></i></button>
 </form>
-
-
-
-
-
 </body>
 </html>
